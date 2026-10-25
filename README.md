@@ -34,13 +34,15 @@ open index.html
 
 ## Contribuer
 
-1. Créer un worktree git pour la fonctionnalité :
+1. Créer une branche ou un worktree git pour la fonctionnalité :
    ```bash
    make worktree-creer NOM=ma-fonctionnalite
+   # ou git checkout -b feature/ma-fonctionnalite
    ```
-2. Respecter les conventions de code (indentation 2 espaces, guillemets simples, points-virgules, tout en français)
-3. Faire une revue pas à pas avant de merger
-4. Mettre à jour la documentation si nécessaire
+2. Respecter les conventions de code (indentation 2 espaces, guillemets simples, points-virgules, tout en français).
+3. Contrôler la qualité avec `make verifier` et `make openspec-verifier`.
+4. Pousser la branche et **ouvrir une Pull Request vers `main`** (interdiction formelle de pousser directement sur `main`).
+5. La fusion se fait via la PR après revue.
 
 ## Documentation
 

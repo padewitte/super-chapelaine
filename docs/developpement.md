@@ -117,20 +117,24 @@ cd ../super-chapelaine--ma-fonctionnalite
 Le worktree est un répertoire complet avec le code de la branche.
 On y travaille normalement (éditer, commiter, pousser).
 
-### Revue et merge
+### Revue et Pull Request
 
-Avant de merger :
+> ⛔ **Protection de `main`** : Ne **jamais pousser directement sur `main`** (`git push origin main` interdit). Tout développement ou contribution assistée par IA / agent doit obligatoirement passer par une branche dédiée et une Pull Request.
 
-1. **Revue pas à pas** : relire chaque changement dans le diff
-2. **Vérification visuelle** : ouvrir dans le navigateur et tester
-3. **Merge** :
+Avant de finaliser :
+
+1. **Revue pas à pas** : relire chaque changement dans le diff (`git diff main`).
+2. **Vérification qualité** : exécuter `make verifier` et `make openspec-verifier`.
+3. **Pousser la branche de travail** :
    ```bash
-   git checkout main
-   git merge ma-fonctionnalite
+   git push -u origin ma-fonctionnalite
    ```
+4. **Ouvrir une Pull Request** : créer la PR vers `main` sur GitHub.
+5. **Merge via la PR** : la fusion sur `main` se fait uniquement après revue dans l'interface GitHub (pas de merge direct en local).
 
 ### Supprimer le worktree
 
+Une fois la Pull Request mergée :
 ```bash
 make worktree-supprimer NOM=ma-fonctionnalite
 ```

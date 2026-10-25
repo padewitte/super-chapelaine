@@ -277,23 +277,37 @@ Le fichier de session doit contenir :
 
 ---
 
-## Workflow Git avec worktrees
+## Workflow Git, branches et Pull Requests
 
-Utiliser des **worktrees git** pour travailler en parallèle sur plusieurs
-fonctionnalités :
+> ⛔ **Règle absolue pour tout développement avec IA/Agent** : **NE JAMAIS POUSSER DIRECTEMENT SUR `main`** (`git push origin main` est formellement interdit). Tout développement ou modification doit obligatoirement passer par une branche dédiée et être soumis sous forme de Pull Request.
 
-```bash
-# Créer un worktree pour une nouvelle fonctionnalité
-make worktree-creer NOM=ma-fonctionnalite
+### Workflow obligatoire par branche et PR :
+1. **Création d'une branche ou d'un worktree** :
+   ```bash
+   # Option A : branche standard
+   git checkout -b feature/ma-fonctionnalite  # ou fix/... / docs/...
 
-# Travailler dans le worktree
-cd ../super-chapelaine--ma-fonctionnalite
-
-# Supprimer le worktree une fois terminé
-make worktree-supprimer NOM=ma-fonctionnalite
-```
-
-Faire une **revue native pas à pas** du code avant chaque merge.
+   # Option B : worktree git (recommandé pour tâches isolées)
+   make worktree-creer NOM=ma-fonctionnalite
+   cd ../super-chapelaine--ma-fonctionnalite
+   ```
+2. **Développement et vérification** :
+   - Coder et valider via `make verifier` et `make openspec-verifier`.
+   - Faire une **revue pas à pas** de chaque diff.
+   - Créer des commits clairs et en français sur la branche de travail.
+3. **Publication et Pull Request** :
+   - Pousser la branche de travail sur le remote :
+     ```bash
+     git push -u origin feature/ma-fonctionnalite
+     ```
+   - Ouvrir une Pull Request vers `main` (via le lien fourni par GitHub lors du push ou via l'interface).
+   - **Interdiction formelle de merger directement sur `main` en local pour ensuite pousser sur origin**.
+4. **Validation et fusion** :
+   - La revue finale et la fusion vers `main` se font exclusivement via la Pull Request sur GitHub.
+   - Nettoyer le worktree après le merge :
+     ```bash
+     make worktree-supprimer NOM=ma-fonctionnalite
+     ```
 
 ---
 
