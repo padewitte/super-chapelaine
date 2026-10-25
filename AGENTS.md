@@ -118,26 +118,38 @@ super-chapelaine/
 ├── README.md               ← Documentation pour humains
 │
 ├── js/                     ← Modules JavaScript ES6+
-│   ├── app.js              ← Point d'entrée JS
-│   ├── config/             ← Configuration et constantes
-│   ├── renderers/          ← Fonctions de rendu DOM
-│   ├── extracteurs/        ← Extraction de données (CSV, etc.)
-│   ├── parsers/            ← Analyse de formats (GestHand, etc.)
-│   └── nettoyeurs/         ← Nettoyage et validation de données
+│   ├── app.js              ← Point d'entrée JS & routage inter-modules
+│   ├── attestation/        ← Module Attestation de paiement
+│   │   ├── attestation-app.js
+│   │   ├── calcul-tarif.js
+│   │   ├── csv-licencies-parser.js
+│   │   └── generateur-docx.js
+│   └── com-hebdo/          ← Module Communication hebdomadaire
+│       ├── com-hebdo-app.js
+│       ├── competitions.js
+│       ├── csv-parser.js
+│       ├── data-cleaner.js
+│       ├── data-extractor.js
+│       ├── google-config.js
+│       ├── google-sheets.js
+│       ├── kifekoi-renderer.js
+│       └── visuel-renderer.js
 │
 ├── css/                    ← Feuilles de style
-│   └── styles.css          ← Styles principaux avec variables CSS
+│   └── style.css           ← Styles principaux avec variables CSS (:root)
 │
 ├── ressources/             ← Modèles et données
 │   ├── attestation-de-paiement/  ← CSV et DOCX pour attestations
-│   └── com-hebdo/          ← Données communication hebdomadaire
+│   └── modele-attestation-de-paiement/
 │
 ├── mail/                   ← Scripts utilitaires autonomes (mails)
-├── matchs/                 ← Scripts utilitaires autonomes (matchs)
+├── matchs/                 ← Jeux d'essai CSV GestHand
 ├── docs/                   ← Documentation détaillée
 │   ├── architecture.md     ← Architecture avec diagrammes Mermaid
+│   ├── com-hebdo.md        ← Spécification fonctionnelle et technique Com' Hebdo
 │   └── developpement.md    ← Guide de développement
 │
+├── openspec/               ← Spécifications et configuration OpenSpec
 ├── .sessions/              ← Logs des sessions IA (Markdown)
 └── .github/
     └── copilot-instructions.md  ← Renvoi vers AGENTS.md

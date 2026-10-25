@@ -15,7 +15,7 @@ DATE_SESSION  := $(shell date '+%Y-%m-%d_%Hh%M')
 MODELE        := claude
 
 # ── Fichiers attendus dans le projet ──────────────────────────────
-FICHIERS_REQUIS := index.html css/styles.css js/app.js
+FICHIERS_REQUIS := index.html css/style.css js/app.js
 
 # ── Cibles déclarées (pas de fichiers correspondants) ─────────────
 .PHONY: help servir verifier session worktree-creer worktree-supprimer \

@@ -73,7 +73,7 @@ mkdir -p ressources/frais-km
 |---------------------|---------------------------|-------------------------------|
 | Répertoires         | kebab-case                | `attestation-de-paiement/`    |
 | Fichiers JS         | camelCase ou kebab-case   | `extracteurCsv.js`            |
-| Fichiers CSS        | kebab-case                | `styles.css`                  |
+| Fichiers CSS        | kebab-case                | `style.css`                   |
 | Fichiers de données | kebab-case                | `modele-licencie-adresse.csv` |
 | Documentation       | kebab-case                | `architecture.md`             |
 
