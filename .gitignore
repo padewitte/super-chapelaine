@@ -1,0 +1,26 @@
+# ╔════════════════════════════════════════════════════════╗
+# ║  Super Chapelaine — Fichiers ignorés par git          ║
+# ╚════════════════════════════════════════════════════════╝
+
+# Sessions IA (décommenter pour ignorer)
+# .sessions/
+
+# Dépendances Node (au cas où)
+node_modules/
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Fichiers temporaires d'éditeur
+*.swp
+*.swo
+*~
+
+# Variables d'environnement
+.env
+.env.local
+
+# Répertoires de build et temporaires
+dist/
+tmp/
