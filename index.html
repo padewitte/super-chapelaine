@@ -33,8 +33,8 @@
 
   <!-- ===== MENU MODULES (ONGLETS PRINCIPAUX) ===== -->
   <div class="menu-modules">
-    <div class="menu-module active" data-module="attestation">Attestations</div>
-    <div class="menu-module" data-module="com-hebdo">Com Hebdo</div>
+    <div class="menu-module active" data-module="com-hebdo">Com Hebdo</div>
+    <div class="menu-module" data-module="attestation">Attestations</div>
     <div class="menu-module" data-module="frais-km">Frais km</div>
     <div class="menu-module" data-module="assistance">Assistance</div>
   </div>
@@ -42,7 +42,7 @@
   <!-- ============================================================= -->
   <!-- MODULE ATTESTATION                                            -->
   <!-- ============================================================= -->
-  <div class="module-content" id="module-attestation">
+  <div class="module-content hidden" id="module-attestation">
     <div class="container">
 
       <!-- Zone d'import CSV -->
@@ -81,7 +81,7 @@
   <!-- ============================================================= -->
   <!-- MODULE COM HEBDO                                              -->
   <!-- ============================================================= -->
-  <div class="module-content hidden" id="module-com-hebdo">
+  <div class="module-content" id="module-com-hebdo">
     <div class="container">
 
       <!-- Zone d'import CSV GestHand -->
@@ -130,6 +130,7 @@
           <div class="sub-tab coutanciere active" data-salle="coutanciere">Coutancière</div>
           <div class="sub-tab jahan" data-salle="jahan">Jean Jahan</div>
           <div class="sub-tab exterieur" data-salle="exterieur">Extérieur</div>
+          <div class="sub-tab non-defini" data-salle="non-defini">Match non défini</div>
         </div>
 
         <div class="tab-content" id="tab-coutanciere">
@@ -145,6 +146,11 @@
         <div class="tab-content hidden" id="tab-exterieur">
           <div class="empty-state" id="empty-exterieur">Chargez un fichier CSV pour afficher le planning.</div>
           <div id="kifekoi-exterieur"></div>
+        </div>
+
+        <div class="tab-content hidden" id="tab-non-defini">
+          <div class="empty-state" id="empty-non-defini">Chargez un fichier CSV pour afficher le planning.</div>
+          <div id="kifekoi-non-defini"></div>
         </div>
 
       </div>

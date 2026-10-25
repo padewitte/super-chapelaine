@@ -358,6 +358,24 @@ select option.semaine-passee {
       }
     }
 
+     &.non-defini {
+      &.active, &:hover {
+        color: #d4a73a;
+        border-color: #d4a73a;
+        background: rgba(212,167,58,.08);
+      }
+    }
+
+    &.pending {
+    border-style: dashed;
+
+    & .kifekoi-day {
+      background: rgba(212,167,58,.1);
+      color: #d4a73a;
+      font-style: italic;
+    }
+  }
+
     &.annonce-day {
       &.active, &:hover {
         color: var(--text);
