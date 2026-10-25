@@ -5,25 +5,85 @@
 
 ---
 
-## Pré-requis : Superpower
+## Pré-requis obligatoire : OpenSpec (Spec-Driven Development)
 
-Avant toute session de travail, vérifier que **superpower** est configuré.
+Ce projet applique rigoureusement la méthodologie **OpenSpec** (développement piloté par les spécifications).
 
-Si superpower n'est pas accessible :
+### Règle d'or pour tout agent IA
 
-> Ce projet utilise OpenCode en CLI. Superpower doit être configuré :
->
-> ```bash
-> opencode plugin add git+https://github.com/obra/superpowers.git
-> ```
->
-> Si le fichier `.github/copilot-instructions.md` est absent, exécuter :
->
-> ```bash
-> ~/.copilot/superpowers/install.sh
-> ```
+> ⚠️ **Obligation absolue** : Pour tout agent IA, vérifier avant chaque nouvelle session que le workflow OpenSpec est actif et respecté.
+> **Toute modification en dehors de ce workflow doit être expressément demandée et justifiée par l'utilisateur**, même en mode automatique forcé.
 
-Utiliser `make superpower-verifier` pour vérifier l'installation.
+### Étapes de vérification de la configuration OpenSpec
+
+Avant de débuter tout travail, exécuter la commande de vérification :
+
+```bash
+make openspec-verifier
+```
+
+L'agent ou le développeur doit s'assurer des points suivants :
+
+1. **Présence du binaire `openspec` dans le `PATH`** :
+   ```bash
+   openspec --version
+   ```
+   Si la commande n'est pas trouvée :
+   - Installation via Homebrew :
+     ```bash
+     brew install openspec
+     ```
+   - Ou installation autonome (sans dépendance Node.js) :
+     ```bash
+     curl -fsSL https://raw.githubusercontent.com/fission-codes/openspec/main/install.sh | bash
+     ```
+   - Ou via npm (outil CLI global uniquement) :
+     ```bash
+     npm install -g openspec
+     ```
+
+2. **Vérification de la racine et de la santé du projet** :
+   ```bash
+   openspec doctor
+   ```
+   La commande doit indiquer `OpenSpec root: ok`. Le fichier de configuration `openspec/config.yaml` doit exister à la racine.
+
+3. **Validation des spécifications et des modifications en cours** :
+   ```bash
+   openspec validate --all
+   ```
+   Toutes les spécifications du dossier `openspec/specs/` et propositions dans `openspec/changes/` doivent être conformes au schéma.
+
+4. **Présence des compétences et workflows pour agents** :
+   Vérifier que les répertoires d'instructions et compétences existent (`.agents/skills/`, `.opencode/skills/`, ou `.claude/skills/`).
+   Pour synchroniser ou mettre à jour les instructions agent avec le CLI installé :
+   ```bash
+   openspec update
+   ```
+
+### Cycle de travail OpenSpec (Workflow standard)
+
+Toute modification structurelle ou fonctionnelle suit le cycle standard :
+
+```mermaid
+flowchart LR
+    A["1. Explorer<br/>openspec-explore"] --> B["2. Proposer<br/>openspec-propose"]
+    B --> C["3. Valider / Revue<br/>openspec validate"]
+    C --> D["4. Appliquer<br/>openspec-apply-change"]
+    D --> E["5. Archiver<br/>openspec-archive-change"]
+
+    style A fill:#69b,stroke:#333,color:#fff
+    style B fill:#f96,stroke:#333,color:#fff
+    style C fill:#fc5,stroke:#333,color:#333
+    style D fill:#5a5,stroke:#333,color:#fff
+    style E fill:#999,stroke:#333,color:#fff
+```
+
+1. **Explorer (`openspec-explore` ou `/opsx-explore`)** : clarifier le besoin, poser les questions nécessaires à l'utilisateur avant toute formalisation.
+2. **Proposer (`openspec-propose` ou `/opsx-propose <nom>`)** : générer la proposition (`proposal.md`), les spécifications delta (`specs/<domaine>/spec.md`), la conception (`design.md`) et les tâches (`tasks.md`).
+   > ⛔ **Frontière stricte** : Ne JAMAIS modifier le code applicatif pendant la phase de proposition.
+3. **Appliquer (`openspec-apply-change` ou `/opsx-apply`)** : implémenter le code pas à pas une fois la proposition validée.
+4. **Archiver (`openspec-archive-change` ou `/opsx-archive`)** : intégrer les spécifications au tronc commun et clore la modification.
 
 ---
 
@@ -176,7 +236,7 @@ export { extraireLicencies };
 
 Un `Makefile` est maintenu à la racine du projet. Il contient :
 - Les commandes de développement (`make servir`, `make verifier`)
-- Les harness et étapes superpower
+- La vérification de configuration OpenSpec (`make openspec-verifier`)
 - La gestion des sessions IA et worktrees git
 
 Utiliser `make help` pour lister les commandes disponibles.

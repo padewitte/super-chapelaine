@@ -195,6 +195,33 @@ sans données réelles :
 
 ---
 
+## Méthodologie OpenSpec
+
+Le projet applique la démarche **OpenSpec** (développement piloté par les spécifications). Tout agent IA ou contributeur doit inscrire ses évolutions dans ce cadre.
+
+### Vérifier la configuration OpenSpec
+
+Pour valider l'environnement OpenSpec en une seule commande :
+
+```bash
+make openspec-verifier
+```
+
+Cette commande contrôle :
+1. La disponibilité du CLI `openspec` dans le `PATH`.
+2. L'intégrité de la racine du projet (`openspec doctor`).
+3. La validité des fichiers de spécifications et modifications (`openspec validate --all`).
+4. La présence des configurations et compétences pour les agents.
+
+### Cycle d'évolution d'une fonctionnalité
+
+1. **Exploration** (`openspec-explore` ou `/opsx-explore`) : cadrer le problème et affiner les besoins.
+2. **Proposition** (`openspec-propose` ou `/opsx-propose <nom>`) : rédiger la proposition, la spécification fonctionnelle delta, l'architecture technique et les tâches sans toucher au code applicatif.
+3. **Application** (`openspec-apply-change` ou `/opsx-apply`) : développer les fonctionnalités tâche par tâche en validant visuellement chaque étape.
+4. **Archivage** (`openspec-archive-change` ou `/opsx-archive`) : clôturer le lot et synchroniser les spécifications.
+
+---
+
 ## Commandes utiles
 
 | Commande                           | Description                        |
@@ -205,6 +232,5 @@ sans données réelles :
 | `make session`                     | Créer une session IA               |
 | `make worktree-creer NOM=x`       | Créer un worktree                  |
 | `make worktree-supprimer NOM=x`   | Supprimer un worktree              |
-| `make superpower-verifier`        | Vérifier superpower                |
-| `make superpower-installer`       | Installer superpower               |
+| `make openspec-verifier`          | Vérifier la configuration OpenSpec |
 | `make nettoyer`                    | Nettoyer les fichiers temporaires  |

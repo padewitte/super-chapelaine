@@ -6,7 +6,7 @@ Génère un projet dans ce répertoire avec les instructions et les prérequis s
 # Langue utilisée
 La seule langue autorisée dans les fichiers d’instructions, dans les commentaires, dans les noms de variables, etc., est le français. Il est interdit d’utiliser une autre langue dans ce qui est conservé dans les fichiers. Cette instruction est nécessaire pour des raisons de cohérence.
 
-# Utilisation obligatoire de superpower
+# Utilisation obligatoire d'OpenSpec
 Pour tout agent, vérifier avant chaque nouvelle session openspec est utilisé. Toute modification en dehors de ce workflow doit etre expresssement demande et jsutifié par l'utilisateur même en mode auto forcé.
 
 # But du projet
@@ -61,7 +61,7 @@ Le fichier AGENTS.md doit être tenu strictement à jour.
 
 ## Makefile
 
-Maintenir un Makefile pour les outils de travail et les étapes Superpowers.
+Maintenir un Makefile pour les outils de travail et les étapes OpenSpec.
 
 ## Enregistrer les sessions au fur et à mesure
 Enregistrez les demandes de toutes les sessions IA dans le répertoire .sessions/. Utilisez le format Markdown.

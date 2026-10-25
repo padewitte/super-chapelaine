@@ -19,7 +19,7 @@ FICHIERS_REQUIS := index.html css/styles.css js/app.js
 
 # ── Cibles déclarées (pas de fichiers correspondants) ─────────────
 .PHONY: help servir verifier session worktree-creer worktree-supprimer \
-        superpower-verifier superpower-installer nettoyer
+        openspec-verifier nettoyer
 
 # ══════════════════════════════════════════════════════════════════
 # Aide — cible par défaut
@@ -35,8 +35,7 @@ help:
 	@echo "║  make session               — Nouvelle session IA        ║"
 	@echo "║  make worktree-creer NOM=x  — Créer un worktree git     ║"
 	@echo "║  make worktree-supprimer NOM=x — Supprimer un worktree  ║"
-	@echo "║  make superpower-verifier   — Vérifier superpower        ║"
-	@echo "║  make superpower-installer  — Installer superpower       ║"
+	@echo "║  make openspec-verifier     — Vérifier OpenSpec          ║"
 	@echo "║  make nettoyer              — Nettoyer les temporaires   ║"
 	@echo "║                                                          ║"
 	@echo "╚════════════════════════════════════════════════════════════╝"
@@ -144,28 +143,48 @@ endif
 		|| echo "  ❌ Worktree introuvable : $(REPERTOIRE_WORKTREES)/$(NOM_PROJET)--$(NOM)"
 
 # ══════════════════════════════════════════════════════════════════
-# Superpower — vérifier que l'outil superpower est configuré
+# OpenSpec — vérifier que l'outil OpenSpec et le projet sont configurés
 # ══════════════════════════════════════════════════════════════════
-superpower-verifier:
-	@echo "🔌 Vérification de superpower…"
-	@if command -v superpower >/dev/null 2>&1; then \
-		echo "  ✅ superpower est installé : $$(superpower --version 2>/dev/null || echo 'version inconnue')"; \
+openspec-verifier:
+	@echo "🔍 Vérification de la configuration OpenSpec…"
+	@echo ""
+	@ERREURS=0; \
+	if command -v openspec >/dev/null 2>&1; then \
+		echo "  ✅ CLI openspec détecté : $$(openspec --version 2>/dev/null || echo 'version inconnue')"; \
 	else \
-		echo "  ❌ superpower n'est pas installé."; \
-		echo "     → make superpower-installer"; \
-	fi
-
-# ══════════════════════════════════════════════════════════════════
-# Superpower — installer l'outil superpower
-# ══════════════════════════════════════════════════════════════════
-superpower-installer:
-	@echo "📦 Installation de superpower…"
-	@if command -v npm >/dev/null 2>&1; then \
-		npm install -g superpower && echo "  ✅ superpower installé avec succès."; \
+		echo "  ❌ CLI openspec non trouvé dans le PATH."; \
+		echo "     Installation recommandée :"; \
+		echo "       - Avec Homebrew : brew install openspec"; \
+		echo "       - Ou standalone : curl -fsSL https://raw.githubusercontent.com/fission-codes/openspec/main/install.sh | bash"; \
+		ERREURS=$$((ERREURS + 1)); \
+	fi; \
+	if [ -f "openspec/config.yaml" ]; then \
+		echo "  ✅ Configuration openspec/config.yaml présente"; \
 	else \
-		echo "  ❌ npm introuvable. Installer Node.js d'abord."; \
+		echo "  ❌ Fichier openspec/config.yaml manquant"; \
+		ERREURS=$$((ERREURS + 1)); \
+	fi; \
+	if [ -d ".agents/skills" ] || [ -d ".claude/skills" ] || [ -d ".opencode/skills" ]; then \
+		echo "  ✅ Compétences et workflows OpenSpec présents"; \
+	else \
+		echo "  ⚠️  Dossiers de compétences OpenSpec non trouvés (exécuter 'openspec update' pour les régénérer)"; \
+	fi; \
+	if [ $$ERREURS -eq 0 ]; then \
+		echo ""; \
+		echo "📋 Rapport openspec doctor :"; \
+		openspec doctor || ERREURS=$$((ERREURS + 1)); \
+		echo ""; \
+		echo "📋 Validation openspec validate --all :"; \
+		openspec validate --all || ERREURS=$$((ERREURS + 1)); \
+	fi; \
+	echo ""; \
+	if [ $$ERREURS -eq 0 ]; then \
+		echo "  🎉 OpenSpec est parfaitement configuré et opérationnel !"; \
+	else \
+		echo "  ⚠️  $$ERREURS anomalie(s) détectée(s) dans la configuration OpenSpec."; \
 		exit 1; \
-	fi
+	fi; \
+	echo ""
 
 # ══════════════════════════════════════════════════════════════════
 # Nettoyer — supprimer les fichiers temporaires
